@@ -135,3 +135,4 @@ Route::get('/delete_datamodel/{num}', function($num){
 });
 
 //allow mass assignment
+//測試
