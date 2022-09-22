@@ -133,3 +133,5 @@ Route::get('/delete_datamodel/{num}', function($num){
     $delete123 = Post::find($num);
     $delete123->delete();
 });
+
+//from lab
