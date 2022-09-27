@@ -85,15 +85,15 @@ Route::get('/delete_postsdata/{id}',function($id){
 //READ
 use App\Models\Post;    //新增的路徑
 
-Route::get('/read_datamodel',function(){
+Route::get('/read_datamodel/{id}',function($id){
     //$readall = Post::all();
     //foreach($readall as $post){
     //    echo $post->title123;
     //}
 
-    $readone = Post::findOrFail(2);
+    $readone = Post::findOrFail($id);
     //$readone = Post::find(3);     //與上面那一行差別:上面當找不到時會顯示404 not found
-    return $readone->title123;
+    return $readone;//->title123;
     //**find method is available in the model**
 
     //$findwhere = Post::where('id', 3)->orderby('id', 'DESC')->take(1)->get();
@@ -132,4 +132,43 @@ Route::get('/update2_datamodel/{num}', function($num){
 Route::get('/delete_datamodel/{num}', function($num){
     $delete123 = Post::find($num);
     $delete123->delete();
+});
+
+////////////////////////////////
+//DELETE
+Route::get('/delete_datamodel', function(){
+    //$delete123 = Post::find(3);
+    //$delete123->delete();
+
+//DELETE (another method)
+    //Post::destroy(3);
+    //Post::destroy([3,4,5]);   //一次摧毀多個
+    //Post::where('is_admin', '1')->forceDelete();
+});
+//把models/Post裡的use softDeletes註解掉可直接刪除
+////////////////////////////////
+
+
+
+
+//SOFTDELETE    (顯示刪除時間，實際上data仍然在)
+Route::get('/softdelete_datamodel/{id}', function($id){
+    Post::find($id)->delete();
+});
+//READ SOFTDELETE
+Route::get('/readsoftdelete_datamodel', function(){
+    //$readsftdele = Post::withTrashed()->where('id', 2)->get();
+    $readsftdele = Post::onlyTrashed()->where('is_admin', 0)->get();
+    //withTrashed:包含softdelete掉的全部顯示
+    //onlyTrashed:僅顯示softdelete掉的
+    return $readsftdele;
+});
+//RESTORE SOFTDELETE    (原先被softdelete的data，顯示delete時間回復為原本的null)
+Route::get('/restoresoftdelete_datamodel', function(){
+    Post::withTrashed()->where('is_admin', 0)->restore();
+});
+
+//FORCEDELETE   (真正的刪除data)
+Route::get('/forcedelete_datamodel', function(){
+    Post::onlyTrashed()->where('is_admin', 0)->forceDelete();
 });

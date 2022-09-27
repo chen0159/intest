@@ -13,7 +13,10 @@ class Post extends Model
 {
     use HasFactory;
 
-    
+    //新增的
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
+    //
 
     //protected $table = 'posts';
     //當上面的class改名不叫Post時，此行可讓程式知道table仍是posts
