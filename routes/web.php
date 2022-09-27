@@ -85,13 +85,13 @@ Route::get('/delete_postsdata/{id}',function($id){
 //READ
 use App\Models\Post;    //新增的路徑
 
-Route::get('/read_datamodel/{id}',function($id){
+Route::get('/read_datamodel',function(){
     //$readall = Post::all();
     //foreach($readall as $post){
     //    echo $post->title123;
     //}
 
-    $readone = Post::findOrFail($id);
+    $readone = Post::findOrFail(2);
     //$readone = Post::find(3);     //與上面那一行差別:上面當找不到時會顯示404 not found
     return $readone;//->title123;
     //**find method is available in the model**
@@ -133,6 +133,8 @@ Route::get('/delete_datamodel/{num}', function($num){
     $delete123 = Post::find($num);
     $delete123->delete();
 });
+
+//from lab
 
 ////////////////////////////////
 //DELETE
