@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
 
             //
+            $table->integer('user_id')->unsigned()->default(0);
             $table->string('title123');
             $table->text('testtest123');
             //$table->string('title123')->unique();

@@ -41,4 +41,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+
+
+     //新增
+     public function pfunpost(){
+        return $this->hasOne('App\Models\Post');  //默認user_id
+        //等於return $this->hasOne('App\Models\Post','user_id');
+        //user有一個
+
+        //return $this->hasOne('App\Models\Post','id');
+    }
+
 }

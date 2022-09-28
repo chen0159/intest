@@ -32,6 +32,10 @@ class Post extends Model
     ];
     //在route裡使用create方法新增DATA時，需要允許mass assignment;上面protected $fillable可解決
 
+    public function pfunuser(){
+        return $this->belongsTo('App\Models\User', 'user_id');
+        //belongsTo=屬於誰的
+    }
 
 
     

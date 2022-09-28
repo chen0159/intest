@@ -174,3 +174,15 @@ Route::get('/restoresoftdelete_datamodel', function(){
 Route::get('/forcedelete_datamodel', function(){
     Post::onlyTrashed()->where('is_admin', 0)->forceDelete();
 });
+
+//hasone belongsto
+use App\Models\User;
+
+//one to one
+Route::get('/user/{id}/post', function($id){
+    return User::find($id)->pfunpost->title123;
+});
+
+Route::get('/post/{id}/user', function($id){
+    return Post::find($id)->pfunuser->name;
+});
