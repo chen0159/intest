@@ -134,7 +134,6 @@ Route::get('/delete_datamodel/{num}', function($num){
     $delete123->delete();
 });
 
-<<<<<<< HEAD
 //from lab
 
 ////////////////////////////////
@@ -175,6 +174,3 @@ Route::get('/restoresoftdelete_datamodel', function(){
 Route::get('/forcedelete_datamodel', function(){
     Post::onlyTrashed()->where('is_admin', 0)->forceDelete();
 });
-=======
-//from lab
->>>>>>> 4fa8428a816ad781c0eaa3df642c1bb6221e9e07
