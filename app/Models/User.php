@@ -54,4 +54,17 @@ class User extends Authenticatable
         //return $this->hasOne('App\Models\Post','id');
     }
 
+    public function pFunPosts(){
+        return $this->hasMany('App\Models\Post');  //默認user_id
+    }
+
+
+
+
+    public function pFunRoles(){
+        return $this->belongsToMany('App\Models\Role')->withPivot('created_at');    //默認('App\Models\Role', 'role_user')
+        //return $this->belongsToMany('App\Models\Role', 'role_user', 'user_id', 'role_id');
+        //->withPivot('created_at');獲取中間table資訊'created_at'
+    }
+
 }

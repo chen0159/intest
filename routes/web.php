@@ -84,6 +84,7 @@ Route::get('/delete_postsdata/{id}',function($id){
 //DATA WITH MODEL
 //READ
 use App\Models\Post;    //新增的路徑
+use App\Models\Role;
 
 Route::get('/read_datamodel',function(){
     //$readall = Post::all();
@@ -185,4 +186,38 @@ Route::get('/user/{id}/post', function($id){
 
 Route::get('/post/{id}/user', function($id){
     return Post::find($id)->pfunuser->name;
+});
+
+//one to many
+Route::get('/user/{id}/posts', function($id){
+    $user = User::find($id);
+    foreach ($user->pFunPosts as $post) {
+        echo $post->title123 . "<br>";
+        //return只能一個string，echo多個
+    }
+});
+
+//many to many
+Route::get('/users/{id}/roles', function($id){
+    $user = User::find($id);
+    foreach ($user->pFunRoles as $role) {
+        echo $role->name . "<br>";
+    }
+});
+
+//many to many querying intermediate table(獲取中間table資訊)
+Route::get('/users/{id}/roles/pivot', function($id){
+    $user = User::find($id);
+    foreach ($user->pFunRoles as $role) {
+        return $role->pivot->created_at;
+    }
+});
+
+use App\Models\Country;
+//manythrough
+Route::get('/countryToPost/{id}', function($id){
+    $country = Country::find($id);
+    foreach ($country->countryToPost as $post) {
+        return $post->title123;
+    }
 });
