@@ -221,3 +221,49 @@ Route::get('/countryToPost/{id}', function($id){
         return $post->title123;
     }
 });
+
+
+
+
+use App\Models\Photo;
+//polymorphic method
+Route::get('/userPhoto/{id}', function($id){
+    $yours = User::find($id);
+    //return $yours->yoursPhoto;
+    foreach ($yours->yoursPhoto as $your) {
+        echo $your;
+    }
+});
+Route::get('/postPhoto/{id}', function($id){
+    $yours = Post::find($id);
+    foreach ($yours->yoursPhoto as $your) {
+        echo $your;
+    }
+});
+
+Route::get('/inversePhoto/{id}', function($id){
+    $results = Photo::find($id);
+    return $results->inversePhoto;
+});
+
+use App\Models\Tag;
+use App\Models\Video;
+//polymorphic methods many to many
+Route::get('/postToTag/{id}', function($id){
+    $results = Post::find($id);
+    return $results->postToTag;
+});
+
+Route::get('/videoToTag/{id}', function($id){
+    $results = Video::find($id);
+    return $results->videoToTag;
+});
+
+Route::get('/tagToPost/{id}', function($id){
+    $results = Tag::find($id);
+    return $results->tagToPost;
+});
+Route::get('/tagToVideo/{id}', function($id){
+    $results = Tag::find($id);
+    return $results->tagToVideo;
+});

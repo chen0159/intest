@@ -67,4 +67,11 @@ class User extends Authenticatable
         //->withPivot('created_at');獲取中間table資訊'created_at'
     }
 
+
+    //polymorphic methods
+    public function yoursPhoto(){
+        return $this->morphMany('App\Models\Photo', 'imageable');
+    }
+    //
+
 }

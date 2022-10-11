@@ -38,6 +38,16 @@ class Post extends Model
     }
 
 
-    
+    //polymorphic methods
+    public function yoursPhoto(){
+        return $this->morphMany('App\Models\Photo', 'imageable');
+    }
+
+    //polymorphic methods many to many
+    public function postToTag(){
+
+        return $this->morphToMany('App\Models\Tag', 'taggable');
+
+    }
     
 }
