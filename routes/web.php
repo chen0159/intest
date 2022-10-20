@@ -267,3 +267,67 @@ Route::get('/tagToVideo/{id}', function($id){
     $results = Tag::find($id);
     return $results->tagToVideo;
 });
+
+
+
+
+//
+//INSERT
+Route::get('/insert_from_userToPost/{id}', function($id){
+    $user = User::findOrFail($id);  //user_id
+    $post = new Post(['title123' => 'new 13 title one to one','testtest123' => 'new 13 text one to one']);
+    $user->pFunPost()->save($post);
+});
+
+//UPDATE
+Route::get('/update_from_userToPost', function(){
+    $post = Post::whereUserId(1)->first();
+    $post->title123 = 'new update 13 title one to one';
+    $post->save();
+});
+
+//read
+Route::get('/read_from_userToPost', function(){
+    $user = User::findOrFail(1);
+    return $user->pFunPost->title123;
+    // foreach ($user->pfunposts as $post){
+    //     echo $post->title123 ."<br>";
+    // }
+});
+
+//delete
+Route::get('/delete_from_userToPost', function(){
+    $user = User::findOrFail(1);
+    $user->pFunPost()->delete();
+});
+
+
+
+
+//
+//INSERT    //同
+Route::get('/insert_from_userToPosts/{id}', function($id){
+    $user = User::findOrFail($id);  //user_id
+    $post = new Post(['title123' => 'new 14 title one to many','testtest123' => 'new 14 text one to many']);
+    $user->pFunPosts()->save($post);
+});
+
+//read
+Route::get('/read_from_userToPosts/{id}', function($id){
+    $user = User::findOrFail($id);
+    foreach ($user->pFunPosts as $post){
+        echo $post->title123 ."<br>";
+    }
+});
+
+//UPDATE
+Route::get('/update_from_userToPosts/{id}', function($id){
+    $user = User::findOrFail($id);
+    $user->pFunPosts()->update(['title123' => "new 14 title one to many $id",'testtest123' => "new 14 text one to many $id"]);
+});
+
+//delete    //同
+Route::get('/delete_from_userToPost', function(){
+    $user = User::findOrFail(1);
+    $user->pFunPosts()->delete();
+});
