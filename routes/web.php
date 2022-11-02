@@ -331,3 +331,67 @@ Route::get('/delete_from_userToPost', function(){
     $user = User::findOrFail(1);
     $user->pFunPosts()->delete();
 });
+
+
+
+
+//
+//insert    //role輸入資料&pivot自動建立關系
+Route::get('/insert_from_usersToRoles/{id}', function($id){
+    $user = User::findOrFail($id);
+    $role = new Role(["name" => "pname from users $id"]);   //$role = new Role();   //$role->name = "pname to users $id";
+    $user->pfunroles()->save($role);
+    //$user->pfunroles()->save(new Role(["name" => "pname from users $id"]));   //340+341
+    //$user->pfunroles()->create(['name' => "create pname from users $id"]);
+});
+
+//read
+Route::get('/read_from_usersToRoles/{id}', function($id){
+    $user = User::findOrFail($id);
+    foreach ($user->pfunroles as $role){
+        echo $role ."<br>";
+    }
+    //collections：$user->pfunroles;    //object：$role;
+});
+
+//update
+Route::get('/update_from_usersToRoles/{id}', function($id){
+    $user = User::findOrFail($id);
+    if($user->has('pfunroles')){
+        foreach ($user->pfunroles as $role){
+            if($role->name == "pname from users $id"){
+                $role->name = "update pname to users $id";
+                $role->save();
+            }
+        }
+    }
+});
+
+//delete
+Route::get('/delete_from_usersToRoles/{id}', function($id){
+    $user = User::findOrFail($id);
+    $user->pfunroles()->delete();
+    // foreach ($user->pfunroles as $role) {
+    //     $role->whereId(3)->delete();    //where('id' ,3);
+    // }
+});
+
+//attach    //新增對應關係(在pivot新增)
+Route::get('/attachRoleUser/{id}', function($id){
+    $user = User::findOrFail($id);
+    $user->pfunroles()->attach($id);
+});
+
+//detach    //刪除對應關係(在pivot刪除)
+Route::get('/detachRoleUser/{id}', function($id){
+    $user = User::findOrFail($id);
+    $user->pfunroles()->detach($id);
+    //$user->pfunroles()->detach(); //刪除user_id = $id 對應的所有關係
+});
+
+//sync
+Route::get('/syncRoleUser/{id}', function($id){
+    $user = User::findOrFail($id);
+    $user->pfunroles()->sync([$id]);    //->sync([5,6,7]);
+    //新增(or保留)user,role = $id 的pivot，刪除user_id = $id 對應的所有關係
+});
