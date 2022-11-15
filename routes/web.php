@@ -271,7 +271,7 @@ Route::get('/tagToVideo/{id}', function($id){
 
 
 
-//
+//13
 //INSERT
 Route::get('/insert_from_userToPost/{id}', function($id){
     $user = User::findOrFail($id);  //user_id
@@ -304,7 +304,7 @@ Route::get('/delete_from_userToPost', function(){
 
 
 
-//
+//14
 //INSERT    //同
 Route::get('/insert_from_userToPosts/{id}', function($id){
     $user = User::findOrFail($id);  //user_id
@@ -335,7 +335,7 @@ Route::get('/delete_from_userToPost', function(){
 
 
 
-//
+//15
 //insert    //role輸入資料&pivot自動建立關系
 Route::get('/insert_from_usersToRoles/{id}', function($id){
     $user = User::findOrFail($id);
@@ -394,4 +394,51 @@ Route::get('/syncRoleUser/{id}', function($id){
     $user = User::findOrFail($id);
     $user->pfunroles()->sync([$id]);    //->sync([5,6,7]);
     //新增(or保留)user,role = $id 的pivot，刪除user_id = $id 對應的所有關係
+});
+
+
+
+
+//
+//insert
+Route::get('/createPhotoFromPost/{id}', function($id){
+    $post = Post::findOrFail($id);
+    $post->yoursphoto()->create(['name' => "create_from_post_$id.jpg"]);
+});
+
+//read
+Route::get('/readPhotoFromPost/{id}', function($id){
+    $post = Post::findOrFail($id);
+    foreach ($post->yoursphoto as $photo){
+        echo $photo->name ."<br>";
+    }
+});
+
+//update
+Route::get('/updatePhotoFromPost/{id}', function($id){
+    $post = Post::findOrFail($id);
+    $photo = $post->yoursphoto()->first();
+    $photo->name = "update_from_post_$id.png";
+    $photo->save();      //save()只能存物件
+    // $post->yoursphoto()->first()->update(['name' => "update_from_post_$id.jpg"]);    //update()可以是集合或物件(，變數也是);
+});
+
+//delete
+Route::get('/deletePhotoFromPost/{id}', function($id){
+    $post = Post::findOrFail($id);
+    $post->yoursphoto()->delete();
+});
+
+//assign
+Route::get('/assignPhotoFromPost/{id}', function($id){
+    $post = Post::findOrFail($id);
+    $photo = Photo::findOrFail(4);
+    //$photo = Photo::where('imageable_id', 0)->first();
+    $post->yoursphoto()->save($photo);
+});
+
+//unassign
+Route::get('/unassignPhotoFromPost/{id}', function($id){
+    $post = Post::findOrFail($id);
+    $post->yoursphoto()/*->where('id', 4)*/->update(["imageable_id" => "0", "imageable_type" => ""]);
 });

@@ -11,6 +11,9 @@ class Photo extends Model
 
 
 
+    //16
+    protected $fillable = ['name'];
+    //
 
     //polymorphic methods
     public function inversePhoto(){
