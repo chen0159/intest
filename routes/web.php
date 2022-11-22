@@ -404,6 +404,8 @@ Route::get('/syncRoleUser/{id}', function($id){
 Route::get('/createPhotoFromPost/{id}', function($id){
     $post = Post::findOrFail($id);
     $post->yoursphoto()->create(['name' => "create_from_post_$id.jpg"]);
+    //$user = User::findOrFail($id);
+    //$user->yoursphoto()->create(['name' => "create_from_user_$id.jpg"]);
 });
 
 //read
@@ -430,9 +432,9 @@ Route::get('/deletePhotoFromPost/{id}', function($id){
 });
 
 //assign
-Route::get('/assignPhotoFromPost/{id}', function($id){
+Route::get('/assignPhotoFromPost/{id}/{id2}', function($id,$id2){
     $post = Post::findOrFail($id);
-    $photo = Photo::findOrFail(4);
+    $photo = Photo::findOrFail($id2);
     //$photo = Photo::where('imageable_id', 0)->first();
     $post->yoursphoto()->save($photo);
 });

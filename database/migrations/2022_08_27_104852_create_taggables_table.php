@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('taggables', function (Blueprint $table) {
             $table->id();
             $table->integer('tag_id');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->integer('taggable_id');
             $table->string('taggable_type');
             $table->timestamps();
