@@ -444,3 +444,8 @@ Route::get('/unassignPhotoFromPost/{id}', function($id){
     $post = Post::findOrFail($id);
     $post->yoursphoto()/*->where('id', 4)*/->update(["imageable_id" => "0", "imageable_type" => ""]);
 });
+
+
+
+
+Route::resource('/postsForm', 'App\Http\Controllers\PostsController');

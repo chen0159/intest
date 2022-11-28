@@ -18,8 +18,8 @@ return new class extends Migration
 
             //
             $table->integer('user_id')->unsigned()->default(0);
-            $table->string('title123');
-            $table->text('testtest123');
+            $table->string('title123')->nullable();
+            $table->text('testtest123')->nullable();
             //$table->string('title123')->unique();
             //$table->string('title123')->nullable();
             //$table->string('title123')->nullable();
