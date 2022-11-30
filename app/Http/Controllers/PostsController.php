@@ -11,6 +11,8 @@ use function Termwind\render;
 
 //
 
+use App\Http\Requests\CreatePostRequest;
+
 class PostsController extends Controller
 {
     /**
@@ -47,13 +49,19 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePostRequest $request)
     {
         //
         //return $request->all();
         //return $request->title123;
 
+        //rules(已搬到Requests資料夾)
+        // $this->validate($request,[
+        //     'title123' => 'required|max:30'
+        // ]);
+        //
 
+        //存
         Post::create($request->all());
         //另個方法
         //$post = new Post;
@@ -102,7 +110,7 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreatePostRequest $request, $id)
     {
         //
 
