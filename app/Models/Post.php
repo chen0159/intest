@@ -50,4 +50,10 @@ class Post extends Model
 
     }
     
+    //20(新排列方式)
+    public static function scopeNewLatest($query){
+        return $query->orderBy('id', 'desc')->get();
+    }
+    //
+
 }

@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'country_id',
     ];
 
     /**
@@ -74,4 +75,15 @@ class User extends Authenticatable
     }
     //
 
+    //20
+    public function getNameAttribute($value)  //抓name的字串(固定名稱)
+    {
+        return ucfirst($value);   // ucfirst = uppercase first letter
+        //return strtoupper($key);  // strtoupper = string to uppercase
+    }
+    public function setNameAttribute($value)    //insert進來的name改成大寫
+    {
+        $this->attributes['name'] = strtoupper($value);
+    }
+    //
 }

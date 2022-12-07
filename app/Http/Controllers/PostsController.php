@@ -28,6 +28,14 @@ class PostsController extends Controller
 
 
         $posts = Post::all();
+
+        //20
+        //$posts = Post::latest()->get();   //由最新的開始排列
+        //$posts = Post::orderBy('id', 'desc')->get();  //id降冪排列
+        //$posts = Post::orderBy('id', 'asc')->get();   //id升冪排列
+        $posts = Post::newLatest();    //新排列方式(post model裡)
+        //
+
         return view('posts.index', compact('posts'));
     }
  

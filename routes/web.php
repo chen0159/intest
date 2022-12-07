@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\Route;
 
+use Illuminate\Support\Carbon;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -449,3 +450,26 @@ Route::get('/unassignPhotoFromPost/{id}', function($id){
 
 
 Route::resource('/postsForm', 'App\Http\Controllers\PostsController');
+
+
+
+
+// dates  //要use Illuminate\Support\Carbon;
+Route::get('/dates', function(){
+
+    $date = new DateTime('+1 week');
+    
+    echo $date->format('m-d-Y H:i:s') .'<br>';
+
+    echo Carbon::now()->addDays(18)->diffForHumans() .'<br>';   //diffForHumans()變為距今多久前
+    echo Carbon::now()->addMonths(18)->diffForHumans() .'<br>';
+    echo Carbon::now()->yesterday()->diffForHumans() .'<br>';
+    echo Carbon::now() .'<br>';
+
+    
+
+
+    echo User::findOrFail(1)->name .'<br>'; //顯示大寫(在user model)
+    User::create(['name' => 'james', 'email' => 'james@', 'password' => 'james123', 'country_id' => '1']);  //insert進來的資料改成大寫
+});
+//
