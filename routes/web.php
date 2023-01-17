@@ -473,3 +473,4 @@ Route::get('/dates', function(){
     User::create(['name' => 'james', 'email' => 'james@', 'password' => 'james123', 'country_id' => '1']);  //insert進來的資料改成大寫
 });
 //
+//test
